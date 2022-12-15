@@ -1,8 +1,8 @@
 #include <iostream>
 
-int findMaxElementByAbsValue(int *array, int size);
+int findMaxElementByAbsValue(const int *array, int size);
 
-int sumOfElementsBetweenFirstAndSecondPositiveElements(int *array, int size);
+int sumOfElementsBetweenFirstAndSecondPositiveElements(const int *array, int size);
 
 void moveZerosToEnd(int *array, int size);
 
@@ -16,8 +16,8 @@ int main() {
     for (int i = 0; i < 200; i++) {
         std::cout << array[i] << " ";
     }
-
-    std::cout << "Max element by abs value: " << (array, 200) << std::endl;
+    
+    std::cout << "Max element by abs value: " << findMaxElementByAbsValue(array, 200) << std::endl;
     std::cout << "Sum of elements between first and second positive elements: "
               << sumOfElementsBetweenFirstAndSecondPositiveElements(array, 200) << std::endl;
     moveZerosToEnd(array, 200);
@@ -27,32 +27,39 @@ int main() {
     }
 }
 
-int findMaxElementByAbsValue(int *array, int size) {
+int findMaxElementByAbsValue(const int *array, int size) {
     int max = 0;
+    // Find max element by abs value
     for (int i = 0; i < size; i++) {
+        // If current element is bigger than max element
         if (abs(array[i]) > max) {
+            // Set current element as max element
             max = abs(array[i]);
         }
     }
     return max;
 }
 
-int sumOfElementsBetweenFirstAndSecondPositiveElements(int *array, int size) {
+int sumOfElementsBetweenFirstAndSecondPositiveElements(const int *array, int size) {
+
     int sum = 0;
     int firstPositiveElement = 0;
     int secondPositiveElement = 0;
+    // Find first positive element
     for (int i = 0; i < size; i++) {
         if (array[i] > 0) {
             firstPositiveElement = i;
             break;
         }
     }
+    // Find second positive element
     for (int i = firstPositiveElement + 1; i < size; i++) {
         if (array[i] > 0) {
             secondPositiveElement = i;
             break;
         }
     }
+    // Sum elements between first and second positive elements
     for (int i = firstPositiveElement + 1; i < secondPositiveElement; i++) {
         sum += array[i];
     }
@@ -61,11 +68,15 @@ int sumOfElementsBetweenFirstAndSecondPositiveElements(int *array, int size) {
 
 void moveZerosToEnd(int *array, int size) {
     int count = 0;
+    // Count zeros
     for (int i = 0; i < size; i++) {
+        // If current element is 0, increment count
         if (array[i] != 0) {
+            // Here, array[i] != 0
             array[count++] = array[i];
         }
     }
+    // Fill remaining array with 0
     while (count < size) {
         array[count++] = 0;
     }
