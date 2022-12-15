@@ -1,32 +1,72 @@
-# Prerequisites
-*.d
+#include <iostream>
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+int findMaxElementByAbsValue(int *array, int size);
 
-# Precompiled Headers
-*.gch
-*.pch
+int sumOfElementsBetweenFirstAndSecondPositiveElements(int *array, int size);
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+void moveZerosToEnd(int *array, int size);
 
-# Fortran module files
-*.mod
-*.smod
+int main() {
+    int *array = new int[200];
+    // Fill array with random numbers
+    for (int i = 0; i < 200; i++) {
+        array[i] = rand() % 100;
+    }
+    // Print array
+    for (int i = 0; i < 200; i++) {
+        std::cout << array[i] << " ";
+    }
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+    std::cout << "Max element by abs value: " << (array, 200) << std::endl;
+    std::cout << "Sum of elements between first and second positive elements: "
+              << sumOfElementsBetweenFirstAndSecondPositiveElements(array, 200) << std::endl;
+    moveZerosToEnd(array, 200);
+    // Print array
+    for (int i = 0; i < 200; i++) {
+        std::cout << array[i] << " ";
+    }
+}
 
-# Executables
-*.exe
-*.out
-*.app
+int findMaxElementByAbsValue(int *array, int size) {
+    int max = 0;
+    for (int i = 0; i < size; i++) {
+        if (abs(array[i]) > max) {
+            max = abs(array[i]);
+        }
+    }
+    return max;
+}
+
+int sumOfElementsBetweenFirstAndSecondPositiveElements(int *array, int size) {
+    int sum = 0;
+    int firstPositiveElement = 0;
+    int secondPositiveElement = 0;
+    for (int i = 0; i < size; i++) {
+        if (array[i] > 0) {
+            firstPositiveElement = i;
+            break;
+        }
+    }
+    for (int i = firstPositiveElement + 1; i < size; i++) {
+        if (array[i] > 0) {
+            secondPositiveElement = i;
+            break;
+        }
+    }
+    for (int i = firstPositiveElement + 1; i < secondPositiveElement; i++) {
+        sum += array[i];
+    }
+    return sum;
+}
+
+void moveZerosToEnd(int *array, int size) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (array[i] != 0) {
+            array[count++] = array[i];
+        }
+    }
+    while (count < size) {
+        array[count++] = 0;
+    }
+}
